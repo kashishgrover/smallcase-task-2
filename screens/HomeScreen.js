@@ -110,7 +110,8 @@ export default class HomeScreen extends React.Component {
                 activeOpacity={0.8}
                 style={{
                   margin: 12,
-                  elevation: 3,
+                  elevation: 2,
+                  borderRadius: 8,
                 }}
                 onPress={() => this.props.navigation.navigate('SingleSmallcase')}
               >

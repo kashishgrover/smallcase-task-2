@@ -39,7 +39,7 @@ export class FeedImage extends React.Component {
                     style={{
                         height: this.state.height,
                         width: this.state.width,
-                        elevation: 1,
+                        borderRadius: 8,
                     }}
                     onLoadStart={() => this.mounted && this.setState({ loading: true })}
                     onLoad={() => this.mounted && this.setState({ loading: false, width: sideLength, height: sideLength })}
