@@ -2,8 +2,8 @@
   "expo": {
     "name": "Smallcase Task 2",
     "description": "Is second time the charm?",
-    "slug": "rnwb",
-    "privacy": "private",
+    "slug": "smallcase-task-2",
+    "privacy": "unlisted",
     "sdkVersion": "25.0.0",
     "platforms": [
       "ios",
