@@ -11,9 +11,7 @@ import {
   FlatList,
 } from 'react-native';
 
-import { observer, inject } from 'mobx-react';
 import { FeedImage } from '../components/FeedImage';
-
 import { SCREEN_WIDTH } from '../assets/constants';
 
 const smallcases = [
@@ -89,8 +87,6 @@ const smallcases = [
   },
 ];
 
-@inject('store')
-@observer
 export default class HomeScreen extends React.Component {
 
   render() {
@@ -116,6 +112,7 @@ export default class HomeScreen extends React.Component {
                   margin: 12,
                   elevation: 3,
                 }}
+                onPress={() => this.props.navigation.navigate('SingleSmallcase')}
               >
                 <FeedImage
                   image={data.item.image}
