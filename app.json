@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "React Native Wrapper Boi",
-    "description": "A very interesting project.",
+    "name": "Smallcase Task 2",
+    "description": "Is second time the charm?",
     "slug": "rnwb",
-    "privacy": "public",
+    "privacy": "private",
     "sdkVersion": "25.0.0",
     "platforms": [
       "ios",
