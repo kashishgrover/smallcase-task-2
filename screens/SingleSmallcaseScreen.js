@@ -14,6 +14,7 @@ import {
 
 import { observer, inject } from 'mobx-react';
 import { FeedImage } from '../components/FeedImage';
+import { SmallcaseLineChart } from '../components/SmallcaseLineChart';
 import { SCREEN_WIDTH } from '../assets/constants';
 
 @inject('store')
@@ -55,7 +56,6 @@ export default class SingleSmallcaseScreen extends React.Component {
     this.props.store.loadHistorical(this.scid)
       .then((res) => {
         this.historical = res;
-        alert(JSON.stringify(this.historical))
         this.setState({ graphLoading: false });
       })
       .catch((err) => {
@@ -145,23 +145,11 @@ export default class SingleSmallcaseScreen extends React.Component {
               {this.rationale}
             </Text>
           </View>
-          <View
-            style={{
-              borderWidth: 1,
-              width: SCREEN_WIDTH - 48,
-              height: 100,
-              marginTop: 12,
-              marginBottom: 48,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {this.state.graphLoading ?
-              <ActivityIndicator />
-              :
-              <Text>Diagram</Text>
-            }
-          </View>
+          {this.state.graphLoading ?
+            <ActivityIndicator size="large" />
+            :
+            <SmallcaseLineChart data={this.historical} />
+          }
         </ScrollView>
     );
   }
