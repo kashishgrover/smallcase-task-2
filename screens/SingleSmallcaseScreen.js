@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 
 import { observer, inject } from 'mobx-react';
@@ -50,94 +51,92 @@ export default class SingleSmallcaseScreen extends React.Component {
   }
 
   render() {
-    let indexValue, daily, monthly, yearly;
+    let indexValue, monthly, yearly;
 
     if (!this.state.loading) {
       indexValue = this.info.indexValue.toFixed(2);
-      daily = this.info.returns.daily;
       monthly = this.info.returns.monthly.toFixed(2);
       yearly = this.info.returns.yearly.toFixed(2);
     }
 
     return (
-      <View
-        style={{
-          padding: 24,
-          width: SCREEN_WIDTH,
-        }}
-      >
-        <View
+      this.state.loading ?
+        <ActivityIndicator style={{ marginTop: 48 }} size="large" />
+        :
+        <ScrollView
           style={{
-            flexDirection: 'row',
+            padding: 24,
+            width: SCREEN_WIDTH,
           }}
         >
-          <Image
-            source={{ uri: this.image, cache: 'reload' }} //force-cache
-            style={{
-              width: SCREEN_WIDTH / 2,
-              height: SCREEN_WIDTH / 2,
-              borderRadius: 8,
-            }}
-          />
           <View
             style={{
-              width: SCREEN_WIDTH / 3 + 4,
-              height: SCREEN_WIDTH / 2,
-              marginLeft: 16,
+              flexDirection: 'row',
             }}
           >
-            <Text style={{ fontSize: 18, color: '#222' }}>
-              <Text style={{ fontWeight: '600' }}>Index: </Text>
-              <Text>{indexValue}</Text>
-            </Text>
-            <Text style={{ fontSize: 16, color: '#222', marginTop: 8 }}>
-              Returns
-            </Text>
-            <Text style={{ fontSize: 16, color: '#222' }}>
-              <Text style={{ fontWeight: '600' }}>Daily: </Text>
-              <Text>{daily}</Text>
-            </Text>
-            <Text style={{ fontSize: 16, color: '#222' }}>
-              <Text style={{ fontWeight: '600' }}>Monthly: </Text>
-              <Text>{monthly}</Text>
-            </Text>
-            <Text style={{ fontSize: 16, color: '#222' }}>
-              <Text style={{ fontWeight: '600' }}>Yearly: </Text>
-              <Text>{yearly}</Text>
+            <Image
+              source={{ uri: this.image, cache: 'reload' }} //force-cache
+              style={{
+                width: SCREEN_WIDTH / 2,
+                height: SCREEN_WIDTH / 2,
+                borderRadius: 8,
+              }}
+            />
+            <View
+              style={{
+                width: SCREEN_WIDTH / 3 + 4,
+                height: SCREEN_WIDTH / 2,
+                marginLeft: 16,
+              }}
+            >
+              <Text style={{ fontSize: 18, color: '#666' }}>
+                <Text style={{ fontWeight: '600' }}>Index: </Text>
+                <Text>{indexValue}</Text>
+              </Text>
+              <Text style={{ fontSize: 18, color: '#333', marginTop: 48, fontWeight: '700' }}>
+                Returns
+              </Text>
+              <Text style={{ fontSize: 16, color: '#666' }}>
+                <Text style={{ fontWeight: '600' }}>Monthly: </Text>
+                <Text>{monthly}</Text>
+              </Text>
+              <Text style={{ fontSize: 16, color: '#666' }}>
+                <Text style={{ fontWeight: '600' }}>Yearly: </Text>
+                <Text>{yearly}</Text>
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              width: SCREEN_WIDTH - 48,
+              marginTop: 12,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Text
+              style={{
+                color: '#333',
+                fontSize: 16,
+                lineHeight: 24,
+              }}
+            >
+              {this.rationale}
             </Text>
           </View>
-        </View>
-        <View
-          style={{
-            width: SCREEN_WIDTH - 48,
-            marginTop: 12,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text
+          <View
             style={{
-              color: '#333',
-              fontSize: 16,
-              lineHeight: 24,
+              borderWidth: 1,
+              width: SCREEN_WIDTH - 48,
+              height: 100,
+              marginTop: 12,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
-            {this.rationale}
-          </Text>
-        </View>
-        <View
-          style={{
-            borderWidth: 1,
-            width: SCREEN_WIDTH - 48,
-            height: 100,
-            marginTop: 12,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Text>Diagram</Text>
-        </View>
-      </View>
+            <Text>Diagram</Text>
+          </View>
+        </ScrollView>
     );
   }
 }
