@@ -32,6 +32,7 @@ export default class SingleSmallcaseScreen extends React.Component {
 
     this.state = {
       loading: true,
+      graphLoading: true,
     }
   }
 
@@ -49,6 +50,16 @@ export default class SingleSmallcaseScreen extends React.Component {
       })
       .catch((err) => {
         console.warn('Unable to fetch data!')
+      })
+
+    this.props.store.loadHistorical(this.scid)
+      .then((res) => {
+        this.historical = res;
+        alert(JSON.stringify(this.historical))
+        this.setState({ graphLoading: false });
+      })
+      .catch((err) => {
+        console.warn('Unable to fetch historical data!')
       })
   }
 
@@ -145,7 +156,11 @@ export default class SingleSmallcaseScreen extends React.Component {
               justifyContent: 'center',
             }}
           >
-            <Text>Diagram</Text>
+            {this.state.graphLoading ?
+              <ActivityIndicator />
+              :
+              <Text>Diagram</Text>
+            }
           </View>
         </ScrollView>
     );

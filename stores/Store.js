@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 import { BASE_URL } from '../assets/constants';
 
 const API_GET_SMALLCASE_URL: string = BASE_URL + '/smallcases/smallcase';
-
+const API_GET_HISTORICAL_URL: string = BASE_URL + '/smallcases/historical';
 export default class Store {
 
     @observable smallcase = {};
@@ -39,6 +39,32 @@ export default class Store {
         }
 
         return this.smallcase;
+    }
+
+    async loadHistorical(scid) {
+        const requestURL = `${API_GET_HISTORICAL_URL}?scid=${scid}`;
+        this.smallcase.historical = {};
+
+        try {
+            let response = await fetch(requestURL, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const sc = await response.json();
+
+            if (!sc.success)
+                return;
+
+            this.smallcase.historical = sc.data;
+
+        } catch (e) {
+            console.warn(e.message);
+        }
+
+        return this.smallcase.historical;
     }
 
 }
