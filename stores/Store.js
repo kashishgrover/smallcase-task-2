@@ -6,14 +6,14 @@ const API_GET_SMALLCASE_URL: string = BASE_URL + '/smallcases/smallcase';
 
 export default class Store {
 
-    @observable smallcases = [];
+    @observable smallcase = {};
 
-    get smallcases() {
-        return this.smallcases;
+    get smallcase() {
+        return this.smallcase;
     }
 
-    set smallcases(result: Array<Object>) {
-        this.smallcases = result;
+    set smallcase(smallcase) {
+        this.smallcase = smallcase;
     }
 
     async loadSmallcase(scid) {
@@ -29,19 +29,16 @@ export default class Store {
 
             const sc = await response.json();
 
-            console.log(sc.data.scid)
-
             if (!sc.success)
                 return;
 
-            if (this.smallcases.length === 0) this.smallcases = sc.data;
-            else this.smallcases = this.smallcases.concat(sc.data);
+            this.smallcase = sc.data;
 
         } catch (e) {
             console.warn(e.message);
         }
 
-        return this.posts;
+        return this.smallcase;
     }
 
 }

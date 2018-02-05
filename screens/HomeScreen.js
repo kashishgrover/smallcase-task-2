@@ -13,6 +13,7 @@ import {
 
 import { FeedImage } from '../components/FeedImage';
 import { SCREEN_WIDTH } from '../assets/constants';
+import { inject } from 'mobx-react';
 
 const smallcases = [
   {
@@ -87,7 +88,12 @@ const smallcases = [
   },
 ];
 
+@inject('store')
 export default class HomeScreen extends React.Component {
+
+  loadSmallcase(item) {
+    this.props.navigation.navigate('SingleSmallcase', item);
+  }
 
   render() {
     return (
@@ -113,7 +119,7 @@ export default class HomeScreen extends React.Component {
                   elevation: 2,
                   borderRadius: 8,
                 }}
-                onPress={() => this.props.navigation.navigate('SingleSmallcase')}
+                onPress={() => this.loadSmallcase(data.item)}
               >
                 <FeedImage
                   image={data.item.image}
