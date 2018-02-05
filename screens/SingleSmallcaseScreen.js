@@ -27,6 +27,7 @@ export default class SingleSmallcaseScreen extends React.Component {
     this.scid = this.props.navigation.state.params.scid;
 
     this.rationale = '';
+    this.stats = {};
     this.info = {};
 
     this.state = {
@@ -42,7 +43,8 @@ export default class SingleSmallcaseScreen extends React.Component {
     this.props.store.loadSmallcase(this.scid)
       .then((res) => {
         this.rationale = res.rationale;
-        this.info = res.stats;
+        this.stats = res.stats;
+        this.info = res.info;
         this.setState({ loading: false });
       })
       .catch((err) => {
@@ -51,12 +53,14 @@ export default class SingleSmallcaseScreen extends React.Component {
   }
 
   render() {
-    let indexValue, monthly, yearly;
+    let indexValue, monthly, yearly, name, type;
 
     if (!this.state.loading) {
-      indexValue = this.info.indexValue.toFixed(2);
-      monthly = this.info.returns.monthly.toFixed(2);
-      yearly = this.info.returns.yearly.toFixed(2);
+      indexValue = this.stats.indexValue.toFixed(2);
+      monthly = this.stats.returns.monthly.toFixed(2);
+      yearly = this.stats.returns.yearly.toFixed(2);
+      name = this.info.name;
+      type = this.info.type;
     }
 
     return (
@@ -65,10 +69,16 @@ export default class SingleSmallcaseScreen extends React.Component {
         :
         <ScrollView
           style={{
-            padding: 24,
+            paddingHorizontal: 24,
             width: SCREEN_WIDTH,
           }}
         >
+          <Text style={{ fontSize: 22, color: '#333', fontWeight: '700', marginTop: 24 }}>
+            <Text>{name}</Text>
+          </Text>
+          <Text style={{ fontSize: 16, color: '#999', fontWeight: '700', marginBottom: 24 }}>
+            <Text>{type}</Text>
+          </Text>
           <View
             style={{
               flexDirection: 'row',
@@ -130,6 +140,7 @@ export default class SingleSmallcaseScreen extends React.Component {
               width: SCREEN_WIDTH - 48,
               height: 100,
               marginTop: 12,
+              marginBottom: 48,
               alignItems: 'center',
               justifyContent: 'center',
             }}
