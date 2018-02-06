@@ -182,7 +182,6 @@ export default class SingleSmallcaseScreen extends React.Component {
               html={'<p>' + this.rationale + '</p>'}
               tagsStyles={{
                 p: {
-                  fontSize: 16,
                   color: '#333',
                 },
                 i: {
@@ -191,7 +190,6 @@ export default class SingleSmallcaseScreen extends React.Component {
                   color: '#333'
                 },
                 em: {
-                  fontSize: 16,
                   fontWeight: '600',
                   color: '#333',
                 },
@@ -202,7 +200,6 @@ export default class SingleSmallcaseScreen extends React.Component {
                   marginTop: 16,
                 },
                 li: {
-                  fontSize: 16,
                   color: '#333',
                 }
               }}
