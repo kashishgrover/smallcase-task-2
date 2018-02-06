@@ -34,33 +34,36 @@ export class SmallcaseLineChart extends React.Component {
     render() {
         return (
             !this.state.loading ?
-                <View>
+                <View
+                    style={{
+                        marginBottom: 32,
+                        marginTop: 24,
+                    }}
+                >
                     <ScrollView
                         style={{
                             flexDirection: 'row',
                         }}
                         pinchGestureEnabled={true}
-                        showsHorizontalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={true}
                         showsVerticalScrollIndicator={false}
                         horizontal={true}
                         zoomScale={1}
                     >
                         <AreaChart
                             style={{
-                                marginTop: 12,
-                                marginBottom: 32,
                                 width: 2000,
                                 height: 400,
                                 backgroundColor: '#ddd',
                             }}
                             dataPoints={this.dataPoints}
                             animate={false}
-                            showGrid={false}
+                            showGrid={true}
+                            contentInset={{ top: 40, bottom: 30 }}
                             svg={{
                                 fill: 'rgba(134, 65, 244, 0.2)',
                                 stroke: 'rgb(134, 65, 244, 0.8)',
                             }}
-                            contentInset={{ top: 40, bottom: 30 }}
                         />
                         <XAxis
                             style={{
@@ -76,9 +79,11 @@ export class SmallcaseLineChart extends React.Component {
                                 fontSize: 12,
                                 fontWeight: '600',
                                 color: 'black',
-                                marginTop: 20,
-                                rotation: -15,
+                                paddingTop: 44,
+                                paddingBottom: 14,
+                                rotation: -30,
                             }}
+                            contentInset={{ top: 40, bottom: 30 }}
                             chartType={XAxis.Type.BAR}
                         />
                     </ScrollView>
@@ -91,6 +96,7 @@ export class SmallcaseLineChart extends React.Component {
                         dataPoints={this.dataPoints}
                         labelStyle={{
                             fontSize: 12,
+                            paddingBottom: 16,
                             fontWeight: '600',
                             color: 'black',
                         }}

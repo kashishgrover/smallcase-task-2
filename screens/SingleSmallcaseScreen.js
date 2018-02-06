@@ -146,7 +146,7 @@ export default class SingleSmallcaseScreen extends React.Component {
             </Text>
           </View>
           {this.state.graphLoading ?
-            <ActivityIndicator size="large" />
+            <ActivityIndicator size="large" style={{ height: 400, alignSelf: 'center', justifyContent: 'center' }} />
             :
             <SmallcaseLineChart data={this.historical} />
           }
