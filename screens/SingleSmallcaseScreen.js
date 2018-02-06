@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 
 import { observer, inject } from 'mobx-react';
+import HTML from 'react-native-render-html';
+
 import { FeedImage } from '../components/FeedImage';
 import { SmallcaseLineChart } from '../components/SmallcaseLineChart';
 import { SCREEN_WIDTH } from '../assets/constants';
@@ -135,15 +137,35 @@ export default class SingleSmallcaseScreen extends React.Component {
               justifyContent: 'center',
             }}
           >
-            <Text
-              style={{
-                color: '#333',
-                fontSize: 16,
-                lineHeight: 24,
+            <HTML
+              html={'<p>' + this.rationale + '</p>'}
+              tagsStyles={{
+                p: {
+                  fontSize: 16,
+                  color: '#333',
+                },
+                i: {
+                  fontSize: 16,
+                  fontStyle: 'italic',
+                  color: '#333'
+                },
+                em: {
+                  fontSize: 16,
+                  fontWeight: '600',
+                  color: '#333',
+                },
+                ul: {
+                  marginTop: 16,
+                },
+                ol: {
+                  marginTop: 16,
+                },
+                li: {
+                  fontSize: 16,
+                  color: '#333',
+                }
               }}
-            >
-              {this.rationale}
-            </Text>
+            />
           </View>
           {this.state.graphLoading ?
             <ActivityIndicator size="large" style={{ height: 400, alignSelf: 'center', justifyContent: 'center' }} />

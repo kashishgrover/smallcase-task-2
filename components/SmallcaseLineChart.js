@@ -81,7 +81,6 @@ export class SmallcaseLineChart extends React.Component {
                                 color: 'black',
                                 paddingTop: 44,
                                 paddingBottom: 14,
-                                rotation: -30,
                             }}
                             contentInset={{ top: 40, bottom: 30 }}
                             chartType={XAxis.Type.BAR}
