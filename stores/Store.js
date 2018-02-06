@@ -33,7 +33,7 @@ export default class Store {
                 return;
 
             this.smallcase = sc.data;
-
+            AsyncStorage.setItem(scid, JSON.stringify(this.smallcase));
         } catch (e) {
             console.warn(e.message);
         }
@@ -59,7 +59,7 @@ export default class Store {
                 return;
 
             this.smallcase.historical = sc.data;
-
+            AsyncStorage.setItem(scid, JSON.stringify(this.smallcase));
         } catch (e) {
             console.warn(e.message);
         }

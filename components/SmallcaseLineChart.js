@@ -1,6 +1,7 @@
 import { AreaChart, YAxis, XAxis } from 'react-native-svg-charts';
 import React from 'react';
 import { View, Text, ScrollView } from 'react-native';
+import { Toast } from 'native-base'
 import { SCREEN_WIDTH } from '../assets/constants';
 
 export class SmallcaseLineChart extends React.Component {
@@ -13,9 +14,14 @@ export class SmallcaseLineChart extends React.Component {
     }
 
     componentDidMount() {
-        this.mapData(this.props.data.points)
-            .then(res => this.setState({ loading: false }))
-            .catch(err => console.warn(err));
+        if (this.props.data)
+            this.mapData(this.props.data.points)
+                .then(res => this.setState({ loading: false }))
+                .catch(err => Toast.show({
+                    text: 'An error occurred!',
+                    type: 'danger',
+                    position: 'top'
+                }));
     }
 
     async mapData(points) {

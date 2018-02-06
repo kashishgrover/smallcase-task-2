@@ -2,15 +2,15 @@ import React from 'react';
 
 import {
   Image,
-  Platform,
   ScrollView,
-  StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-  FlatList,
   ActivityIndicator,
+  NetInfo,
+  AsyncStorage,
 } from 'react-native';
+
+import { Toast } from 'native-base';
 
 import { observer, inject } from 'mobx-react';
 import HTML from 'react-native-render-html';
@@ -44,6 +44,18 @@ export default class SingleSmallcaseScreen extends React.Component {
   }
 
   makeRemoteRequest() {
+
+    NetInfo.getConnectionInfo().then((connectionInfo) => {
+      if (connectionInfo.type === 'none') {
+        Toast.show({
+          text: 'Not Connected to internet!',
+          type: 'warning',
+          position: 'top',
+        });
+        this.checkAsync();
+      }
+    });
+
     this.props.store.loadSmallcase(this.scid)
       .then((res) => {
         this.rationale = res.rationale;
@@ -52,7 +64,11 @@ export default class SingleSmallcaseScreen extends React.Component {
         this.setState({ loading: false });
       })
       .catch((err) => {
-        console.warn('Unable to fetch data!')
+        Toast.show({
+          text: 'Unable to fetch data!',
+          type: 'warning',
+          position: 'top',
+        })
       })
 
     this.props.store.loadHistorical(this.scid)
@@ -61,8 +77,33 @@ export default class SingleSmallcaseScreen extends React.Component {
         this.setState({ graphLoading: false });
       })
       .catch((err) => {
-        console.warn('Unable to fetch historical data!')
+        Toast.show({
+          text: 'Unable to fetch historical data!',
+          type: 'warning',
+          position: 'top',
+        })
       })
+  }
+
+  checkAsync() {
+    AsyncStorage.getItem(this.scid)
+      .then((res) => {
+        res = JSON.parse(res);
+        if (res.rationale)
+          this.rationale = res.rationale;
+        if (res.stats)
+          this.stats = res.stats;
+        if (res.info)
+          this.info = res.info;
+        if (res.historical) {
+          this.historical = res.historical;
+          this.setState({ graphLoading: false })
+        }
+        this.setState({ loading: false });
+      })
+      .catch(err => {
+        console.warn(err);
+      });
   }
 
   render() {
