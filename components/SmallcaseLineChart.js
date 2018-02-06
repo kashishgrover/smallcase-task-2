@@ -24,9 +24,10 @@ export class SmallcaseLineChart extends React.Component {
         this.min = Math.min.apply(Math, this.dataPoints);
         this.dates = points.map(x => {
             let date = new Date(x.date);
-            date = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+            date = (date.getMonth() + 1) + '/' + date.getFullYear();
             return date;
         });
+        this.dates = Array.from(new Set(this.dates))
         return true;
     }
 
@@ -47,8 +48,8 @@ export class SmallcaseLineChart extends React.Component {
                         <AreaChart
                             style={{
                                 marginTop: 12,
-                                marginBottom: 24,
-                                width: 1200,
+                                marginBottom: 32,
+                                width: 2000,
                                 height: 400,
                                 backgroundColor: '#ddd',
                             }}
@@ -59,27 +60,41 @@ export class SmallcaseLineChart extends React.Component {
                                 fill: 'rgba(134, 65, 244, 0.2)',
                                 stroke: 'rgb(134, 65, 244, 0.8)',
                             }}
-                            contentInset={{ top: 20, bottom: 30 }}
+                            contentInset={{ top: 40, bottom: 30 }}
+                        />
+                        <XAxis
+                            style={{
+                                paddingVertical: 16,
+                                width: 2000,
+                                height: 80,
+                                position: 'absolute',
+                                bottom: 0,
+                            }}
+                            values={this.dates}
+                            formatLabel={(value, index) => `${value}`}
+                            labelStyle={{
+                                fontSize: 12,
+                                fontWeight: '600',
+                                color: 'black',
+                                marginTop: 20,
+                                rotation: -15,
+                            }}
+                            chartType={XAxis.Type.BAR}
                         />
                     </ScrollView>
                     <YAxis
-                        style={{ position: 'absolute', top: 0, bottom: 0 }}
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            bottom: 0,
+                        }}
                         dataPoints={this.dataPoints}
                         labelStyle={{
-                            fontSize: 8,
-                            color: 'black',
-                        }}
-                        contentInset={{ top: 20, bottom: 30 }}
-                    />
-                    <XAxis
-                        style={{ position: 'absolute', left: 0, bottom: 32, right: 0 }}
-                        values={this.dates}
-                        labelStyle={{
                             fontSize: 12,
+                            fontWeight: '600',
                             color: 'black',
                         }}
-                        chartType={XAxis.Type.BAR}
-                    // contentInset={{ top: 20, bottom: 30 }}
+                        contentInset={{ top: 40, bottom: 30 }}
                     />
                 </View>
                 :
